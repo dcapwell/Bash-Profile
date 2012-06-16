@@ -1,0 +1,30 @@
+function aws-ssh() {
+  if [ "$1" == "" ]; then
+      echo "Unable to login to AWS; No host given" >&2
+      return 1
+  fi
+  ssh -i $HOME/.ssh/id_rsa -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no $USER@$1
+}
+
+function whirrly() {
+  if [ $# -lt 2 ]; then
+      echo "Unable to run whirr command, need a function and config file!" >&2
+      return 1
+  fi
+
+  COMMAND=$1
+  shift
+  CONFIG=$1
+  shift
+
+  export WHIRR_HOME=${WHIRR_HOME:-/usr/local/whirr/current}
+
+
+  if [ -e $WHIRR_HOME/recipes/$CONFIG ]; then
+    CONFIG_FILE=$WHIRR_HOME/recipes/$CONFIG
+  else
+    CONFIG_FILE=$CONFIG
+  fi
+
+  ${WHIRR_HOME}/bin/whirr $COMMAND --config $CONFIG_FILE $@
+}
