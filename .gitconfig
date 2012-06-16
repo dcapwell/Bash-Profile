@@ -1,0 +1,51 @@
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  df = diff
+  lg = log --oneline --graph --all --decorate
+  lpatch = log -p
+  pom = push origin master
+
+[merge]
+  tool = vimdiff
+
+[gui]
+  spellingdictionary = en
+
+[web]
+  browser = chromium-browser
+
+[core]
+	excludesfile = /home/dcapwell/.gitignore
+  editor = vim
+
+[color] 
+  pager = true
+	ui = true
+  interactive = true
+  diff = true
+  grep = true
+  branch = true
+  showbranch = true
+  status = true
+
+[color "diff"]
+  plain = normal dim
+  meta = yellow dim
+  frag = blue bold
+  old = magenta
+  new = cyan
+  whitespace = red reverse
+ 
+[color "status"]
+  header = normal dim
+  added = yellow
+  untracked = magenta
+ 
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = red
+
