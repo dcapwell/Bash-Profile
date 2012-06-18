@@ -20,7 +20,7 @@ shelltitle "$ |bash"
 defscrollback 5000
 
 ## fixes it so the window can scroll
-termcapinfo xterm ti@:te@
+termcapinfo xterm* ti@:te@
 
 ## Sets the screen shell to be the same as the current one
 shell -$SHELL
