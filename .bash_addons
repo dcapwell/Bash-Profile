@@ -1,0 +1,30 @@
+## 
+## A set of useful functions
+##
+
+function meeting_note() {
+  echo "" >> $1
+  echo "=== $(date) ===" >> $1
+}
+
+## Sets up screen to print out detached screens
+if [ "$PS1" != "" ] ; then
+  PS1="[\u@\h \w]"'\[\033k\033\\\]\$  '
+fi
+
+## show Detached screens when you launch screen
+if [ -e /usr/bin/screen ]; then
+  if [ "$TERM" = "screen" -a ! "$SHOWED_SCREEN_MESSAGE" = "true" ]; then
+    detached_screens=`/usr/bin/screen -list | grep Detached`
+    if [ ! -z "$detached_screens" ]; then
+      echo "+---------------------------------------+"
+      echo "| Detached screens are available:       |"
+      echo "$detached_screens"
+      echo "+---------------------------------------+"
+    else
+      echo "[ screen is activated ]"
+    fi
+    export SHOWED_SCREEN_MESSAGE="true"
+  fi
+fi
+
