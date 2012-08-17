@@ -13,6 +13,9 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Enable mouse input
+set mouse=a
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
