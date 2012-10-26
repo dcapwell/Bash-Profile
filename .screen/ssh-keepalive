@@ -10,14 +10,23 @@ fi
 tempvar=$(which ssh 2>&1 | sed s/\ //g)
 SSH_PRG="$tempvar"
 
-if [ ! -z $2 ];then
-  PREFIX="${2} "
+if [ -z $1 ]; then
+  echo "Unable to run ssh-keepalive; No host defined"
+  exit 1
+fi
+REMOTE_HOST=$1
+shift
+
+if [ ! -z $1 ];then
+  PREFIX="${1} "
+  shift
 fi
 
 ssh() {
   if [[ $TERM = "screen" ]]; then
     # Print the control line to screen with hostname
-    tempvar=$(eval "echo \${$#}")
+    #tempvar=$(eval "echo \${$#}")
+    tempvar=$REMOTE_HOST
     case $tempvar in
       *example.com)   SHOW_HOST=$(echo $tempvar | sed -e 's/\.example\.com//') ;;
       *com)     SHOW_HOST=$(echo $tempvar | sed -r -e 's/\.\w+\.\w+$//') ;;
@@ -39,6 +48,6 @@ ssh() {
 # Will respawn your ssh session, in case it gets killed (e.g. by the firewall)
 # NOTE: If you actually want to kill the ssh session, you need to exit ssh yourself, then ^C to kill this script
 while [ 1 = 1 ]; do
-  ssh "$1"
+  ssh "$REMOTE_HOST" $@
   sleep 5
 done
