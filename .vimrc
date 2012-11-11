@@ -13,6 +13,9 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
+" Enable mouse input
+set mouse=a
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -67,6 +70,9 @@ endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
+
+" Turn spellcheck on
+set spell
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
