@@ -8,7 +8,9 @@ set history=700
 
 " Enable filetype plugins
 filetype plugin on
+filetype plugin indent on
 filetype indent on
+
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -98,3 +100,10 @@ set smarttab
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => To enable different programing langs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Adds go
+set rtp+=$GOROOT/misc/vim
