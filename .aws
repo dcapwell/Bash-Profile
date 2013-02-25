@@ -4,16 +4,31 @@ function aws-ssh() {
       return 1
   fi
 
-  if [ -e "$HOME/.ssh/aws.pem" ]; then
-    local IDENTITY="$HOME/.ssh/aws.pem"
-    local EC2_USER=ec2-user
-  else
-    local IDENTITY="$HOME/.ssh/id_rsa"
-    local EC2_USER=$USER
+  if [[ $TERM = "screen" ]]; then
+    # Print the control line to screen with hostname
+    #tempvar=$(eval "echo \${$#}")
+    tempvar=$1
+    case $tempvar in
+      *compute-1.amazonaws.com)   SHOW_HOST=$(echo $tempvar | sed -e 's/\.compute-1\.amazonaws\.com//') ;;
+      *com)     SHOW_HOST=$(echo $tempvar | sed -r -e 's/\.\w+\.\w+$//') ;;
+      *)      SHOW_HOST=$tempvar ;;
+    esac
+    echo -n -e "\033k${SHOW_HOST}\033\\"
   fi
 
-  echo ssh -i $IDENTITY -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no $EC2_USER@$1
-  ssh -i $IDENTITY -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no $EC2_USER@$1
+  echo ssh -i ${EC2_PEM:-~/.ssh/aws.pem} -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no ec2-user@$1
+  # Will respawn your ssh session, in case it gets killed (e.g. by the firewall)
+  # NOTE: If you actually want to kill the ssh session, you need to exit ssh yourself, then ^C to kill this script
+  while [ 1 = 1 ]; do
+    ssh -i ${EC2_PEM:-~/.ssh/aws.pem} -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no ec2-user@$1
+    sleep 5
+  done
+
+  if [[ $TERM = "screen" ]]; then
+    # Change back to local system's hostname
+    SHOW_HOST=$(echo $HOSTNAME | awk -F. '{print $1}')
+    echo -n -e "\033k${PREFIX}${SHOW_HOST}\033\\"
+  fi
 }
 
 function aws-scp() {
@@ -21,7 +36,7 @@ function aws-scp() {
       echo "Unable to login to AWS; No host given" >&2
       return 1
   fi
-  scp -i ~/.ssh/aws.pem -o StrictHostKeyChecking=no $1 ec2-user@$2:~
+  scp -i ${EC2_PEM:-~/.ssh/aws.pem} -o StrictHostKeyChecking=no $1 ec2-user@$2:~
 }
 
 function aws-scp-hosts() {
@@ -31,27 +46,4 @@ function aws-scp-hosts() {
   for host in $@; do
     aws-scp $file $host
   done
-}
-
-function whirrly() {
-  if [ $# -lt 2 ]; then
-      echo "Unable to run whirr command, need a function and config file!" >&2
-      return 1
-  fi
-
-  COMMAND=$1
-  shift
-  CONFIG=$1
-  shift
-
-  export WHIRR_HOME=${WHIRR_HOME:-/usr/local/whirr/current}
-
-
-  if [ -e $WHIRR_HOME/recipes/$CONFIG ]; then
-    CONFIG_FILE=$WHIRR_HOME/recipes/$CONFIG
-  else
-    CONFIG_FILE=$CONFIG
-  fi
-
-  ${WHIRR_HOME}/bin/whirr $COMMAND --config $CONFIG_FILE $@
 }

@@ -3,8 +3,11 @@
 ##
 
 function meeting_note() {
-  echo "" >> $1
+  if [ -e "$1" ]; then
+    echo "" >> $1
+  fi
   echo "=== $(date) ===" >> $1
+  vim $1
 }
 
 ## Sets up screen to print out detached screens
