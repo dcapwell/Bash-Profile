@@ -1,3 +1,12 @@
+function aws-login() {
+  if [ "$1" == "" ]; then
+      echo "Unable to login to AWS; No host given" >&2
+      return 1
+  fi
+
+  ssh -i ${EC2_PEM:-~/.ssh/aws.pem} -o "ConnectTimeout=2" -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no ec2-user@$1
+}
+
 function aws-ssh() {
   if [ "$1" == "" ]; then
       echo "Unable to login to AWS; No host given" >&2
@@ -16,11 +25,12 @@ function aws-ssh() {
     echo -n -e "\033k${SHOW_HOST}\033\\"
   fi
 
-  echo ssh -i ${EC2_PEM:-~/.ssh/aws.pem} -o "ConnectTimeout=2" -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no ec2-user@$1
+  #echo ssh -i ${EC2_PEM:-~/.ssh/aws.pem} -o "ConnectTimeout=2" -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no ec2-user@$1
   # Will respawn your ssh session, in case it gets killed (e.g. by the firewall)
   # NOTE: If you actually want to kill the ssh session, you need to exit ssh yourself, then ^C to kill this script
   while [ 1 = 1 ]; do
-    ssh -i ${EC2_PEM:-~/.ssh/aws.pem} -o "ConnectTimeout=2" -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no ec2-user@$1
+    #ssh -i ${EC2_PEM:-~/.ssh/aws.pem} -o "ConnectTimeout=2" -o "UserKnownHostsFile /dev/null" -o StrictHostKeyChecking=no ec2-user@$1
+    aws-login $1
     echo -n -e "\033kDOWN-${SHOW_HOST}\033\\"
     sleep 5
   done
@@ -30,6 +40,12 @@ function aws-ssh() {
     SHOW_HOST=$(echo $HOSTNAME | awk -F. '{print $1}')
     echo -n -e "\033k${PREFIX}${SHOW_HOST}\033\\"
   fi
+}
+
+function aws-ssh-hosts() {
+  for host in $@; do
+    aws-login $host
+  done
 }
 
 function aws-scp() {
