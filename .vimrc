@@ -27,6 +27,9 @@ set ruler
 " Ignore case when searching
 set ignorecase
 
+" Ignore tabs while pasting
+set paste
+
 " When searching try to be smart about cases 
 set smartcase
 
