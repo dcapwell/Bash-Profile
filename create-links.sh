@@ -38,8 +38,8 @@ if [ "y" == "$addons" ]; then
   cat >> $DEST <<EOF
 
 ## Bash Extensions
-. $bin/.bash_addons
-. $bin/.aws
+. $bin/bash_addons
+. $bin/aws
 EOF
 
 fi
