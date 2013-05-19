@@ -28,7 +28,7 @@ set ruler
 set ignorecase
 
 " Ignore tabs while pasting
-set paste
+set pastetoggle=<F2>
 
 " When searching try to be smart about cases 
 set smartcase
@@ -103,6 +103,9 @@ set smarttab
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
+
+" respect current indenting rules
+set autoindent
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
