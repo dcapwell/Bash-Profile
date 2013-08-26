@@ -23,7 +23,7 @@
 
 [color] 
   pager = true
-	ui = true
+  ui = true
   interactive = true
   diff = true
   grep = true
