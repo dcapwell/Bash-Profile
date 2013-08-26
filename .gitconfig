@@ -49,6 +49,5 @@
   local = yellow
   remote = red
 
-[user]
-	name = David Capwell
-	email = d.capwell@samsung
+[push]
+	default = matching
