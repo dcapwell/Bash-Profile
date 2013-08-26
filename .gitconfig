@@ -18,7 +18,7 @@
   browser = chromium-browser
 
 [core]
-	excludesfile = /home/dcapwell/.gitignore
+  excludesfile = ~/.gitignore
   editor = vim
 
 [color] 
