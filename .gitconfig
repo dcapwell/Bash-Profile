@@ -23,7 +23,7 @@
 
 [color] 
   pager = true
-	ui = true
+  ui = true
   interactive = true
   diff = true
   grep = true
@@ -50,4 +50,4 @@
   remote = red
 
 [push]
-	default = matching
+  default = matching
