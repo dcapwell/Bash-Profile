@@ -31,8 +31,9 @@ if [ "y" == "$addons" ]; then
     if [ -e ~/.bash_profile ]; then
       DEST=~/.bash_profile
     else
-      echo "Unable to find profile to write to..."
-      exit 1
+      ## Assuming mac since thats the computer I use the most
+      DEST=~/.bash_profile
+      touch $DEST
     fi
   fi
 
