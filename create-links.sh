@@ -45,3 +45,14 @@ if [ "y" == "$addons" ]; then
 EOF
 
 fi
+
+SSH_DIR=~/.ssh
+if [ ! -d "$SSH_DIR" ]; then
+  echo "No ssh directory found, should I create one and a key as well? [y|n]"
+  read ssh_dir
+  if [ "y" == "$ssh_dir" ]; then
+    mkdir $SSH_DIR
+    chmod 700 $SSH_DIR
+    ( cd $SSH_DIR ; ssh-keygen -t dsa )
+  fi
+fi
