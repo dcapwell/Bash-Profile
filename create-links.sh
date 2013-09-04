@@ -17,6 +17,18 @@ function check-exist-then-create {
   fi
 }
 
+if [ -e ~/.bashrc ]; then
+  DEST=~/.bashrc
+else
+  if [ -e ~/.bash_profile ]; then
+    DEST=~/.bash_profile
+  else
+    ## Assuming mac since thats the computer I use the most
+    DEST=~/.bash_profile
+    touch $DEST
+  fi
+fi
+
 for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore
 do
   check-exist-then-create $n
@@ -25,18 +37,6 @@ done
 echo "Append add-ons to bash? [y|n]"
 read addons
 if [ "y" == "$addons" ]; then
-  if [ -e ~/.bashrc ]; then
-    DEST=~/.bashrc
-  else
-    if [ -e ~/.bash_profile ]; then
-      DEST=~/.bash_profile
-    else
-      ## Assuming mac since thats the computer I use the most
-      DEST=~/.bash_profile
-      touch $DEST
-    fi
-  fi
-
   cat >> $DEST <<EOF
 
 ## Bash Extensions
@@ -55,4 +55,15 @@ if [ ! -d "$SSH_DIR" ]; then
     chmod 700 $SSH_DIR
     ( cd $SSH_DIR ; ssh-keygen -t dsa )
   fi
+fi
+
+echo 'Add git completion? [y|n]'
+read gitcomplete
+if [ "y" == "$gitcomplete" ]; then
+  wget "https://raw.github.com/git/git/v`git --version | awk '{print $3}'`/contrib/completion/git-completion.bash"
+  wget "https://raw.github.com/git/git/v`git --version | awk '{print $3}'`/contrib/completion/git-prompt.sh"
+  mv git-completion.bash ~/.git-completion.bash
+  mv git-prompt.sh ~/.git-prompt.sh
+  echo -e "source ~/.git-completion.bash" >> $DEST
+  echo -e "source ~/.git-prompt.sh" >> $DEST
 fi
