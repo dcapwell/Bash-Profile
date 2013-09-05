@@ -63,7 +63,11 @@ if [ "y" == "$gitcomplete" ]; then
   wget "https://raw.github.com/git/git/v`git --version | awk '{print $3}'`/contrib/completion/git-completion.bash"
   wget "https://raw.github.com/git/git/v`git --version | awk '{print $3}'`/contrib/completion/git-prompt.sh"
   mv git-completion.bash ~/.git-completion.bash
+  ## bash-addon will source this since screen doesn't seem to pick it up
   mv git-prompt.sh ~/.git-prompt.sh
-  echo -e "source ~/.git-completion.bash" >> $DEST
-  echo -e "source ~/.git-prompt.sh" >> $DEST
+  cat >> $DEST <<EOF
+
+## Git-Bash integration
+source ~/.git-completion.bash
+EOF
 fi
