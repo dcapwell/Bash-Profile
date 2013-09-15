@@ -24,6 +24,19 @@ function parn() {
   seq $tasks | xargs -n 1 -P $par bash -c "$args" bash
 }
 
+function runn() {
+  if [[ "$1" == *[!0-9]* ]]; then 
+    echo "Unable to run tasks, first input must be a number"
+    return 1
+  fi
+  tasks=$1
+  shift
+
+  args="$@"
+
+  seq $tasks | xargs -n 1 bash -c "$args" bash
+}
+
 ##
 ## Bash colors
 ## Found here: https://wiki.archlinux.org/index.php/Color_Bash_Prompt
