@@ -37,6 +37,8 @@ Thumbs.db
 ######################
 .idea
 *.iml
+*.ipr
+*.iws
 
 
 # Maven Files          #
