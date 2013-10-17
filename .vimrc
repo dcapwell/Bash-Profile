@@ -113,3 +113,11 @@ set autoindent
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Adds go
 set rtp+=$GOROOT/misc/vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Open files where you last where
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
