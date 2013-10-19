@@ -50,7 +50,7 @@
   remote = red
 
 [push]
-	default = matching
+       default = matching
 
 [user]
 	name = David Capwell
