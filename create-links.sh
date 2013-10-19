@@ -5,12 +5,14 @@ bin=`cd "$bin">/dev/null; pwd`
 
 function check-exist-then-create {
   if [ -e "$1" ]; then
-    name=`basename $1`
-    echo "delete $name and link? [y|n]"
+    path=$1
+    #name=`basename $path`
+    name=`sed "s;$bin/;;" <<< $path`
+    echo "delete $name and link $path? [y|n]"
     read del
     if [ "y" == "$del" ]; then
         rm -rf $HOME/$name
-        ln -s $1 $HOME/$name
+        ln -s $path $HOME/$name
       else
         echo "Skipping $1"
     fi
@@ -29,7 +31,7 @@ else
   fi
 fi
 
-for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore
+for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore $bin/.ssh/config
 do
   check-exist-then-create $n
 done
