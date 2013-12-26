@@ -50,8 +50,4 @@
   remote = red
 
 [push]
-       default = matching
-
-[user]
-	name = David Capwell
-	email = dcapwell@gopivotal.com
+  default = matching

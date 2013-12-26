@@ -19,6 +19,9 @@
 *.rar
 *.tar
 *.zip
+*.rpm
+*.deb
+*.pkg
 
 # Logs and databases #
 ######################
@@ -44,6 +47,11 @@ Thumbs.db
 # Maven Files          #
 ######################
 target
+
+# Gradle Files         #
+# ######################
+build
+.gradle
 
 # Hide Screen Profiles #
 ########################
