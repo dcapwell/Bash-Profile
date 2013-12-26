@@ -31,7 +31,7 @@ else
   fi
 fi
 
-for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore $bin/.ssh/config
+for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore $bin/.ssh/config $bin/.bash_color
 do
   check-exist-then-create $n
 done
@@ -42,6 +42,7 @@ if [ "y" == "$addons" ]; then
   cat >> $DEST <<EOF
 
 ## Bash Extensions
+. $bin/.bash_color
 . $bin/bash_addons
 . $bin/aws
 EOF
