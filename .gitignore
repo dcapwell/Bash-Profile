@@ -56,3 +56,8 @@ build
 # Hide Screen Profiles #
 ########################
 .screen/*.profile
+
+# Editor-specific files#
+########################
+# Emacs backup files
+*~
