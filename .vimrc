@@ -16,7 +16,11 @@ filetype indent on
 set autoread
 
 " Enable mouse input
-set mouse=a
+"set mouse=a
+
+" Copy buffer to 'unnamed', which will put it in OSX's copy buffer
+" http://robots.thoughtbot.com/how-to-copy-and-paste-with-tmux-on-mac-os-x
+set clipboard=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface

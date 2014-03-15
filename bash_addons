@@ -37,6 +37,18 @@ function runn() {
   seq $tasks | xargs -n 1 bash -c "$args" bash
 }
 
+function ps1GitOnly() {
+  local ps1="\$ "
+  
+  ## display git branch if git_ps1 is usable
+  if [ -f ~/.git-prompt.sh ]; then
+    source ~/.git-prompt.sh
+    GIT_PROMPT='$(__git_ps1 "(%s)")'
+    ps1="${bldcyn}${GIT_PROMPT}${txtrst} ${ps1}"
+  fi
+  PS1="\[\033k\033\\$ps1"
+}
+
 ## Sets up screen to print out detached screens
 if [ "$PS1" != "" ] ; then
   POSTFIX=""
@@ -53,7 +65,6 @@ if [ "$PS1" != "" ] ; then
   #echo "'$POSTFIX'"
   #export PS1="[\u@\h \w]"'\[\033k\033\\\]\$  '
   export PS1="[\u@\h \w]${POSTFIX} \$ "
-
 fi
 
 ## show Detached screens when you launch screen
@@ -72,3 +83,5 @@ if [ -e /usr/bin/screen ]; then
   fi
 fi
 
+# set bash to use vi mode rather than emacs mode
+set -o vi

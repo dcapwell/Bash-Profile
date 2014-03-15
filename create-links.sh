@@ -31,7 +31,7 @@ else
   fi
 fi
 
-for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore $bin/.ssh/config $bin/.bash_color
+for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore $bin/.ssh/config $bin/.bash_color $bin/.tmux.conf
 do
   check-exist-then-create $n
 done
