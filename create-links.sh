@@ -43,6 +43,7 @@ if [ $? -ne 0 ]; then
   if [ "y" == "$brew_setup" ]; then
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
     /usr/local/bin/brew install wget
+    /usr/local/bin/brew install tree
     /usr/local/bin/brew install curl
     /usr/local/bin/brew install reattach-to-user-namespace
   fi
