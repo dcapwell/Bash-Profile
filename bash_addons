@@ -2,6 +2,10 @@
 ## A set of useful functions
 ##
 
+function realpath() {
+  echo $(cd $(dirname "$1"); pwd)/$(basename "$1")
+}
+
 function meeting_note() {
   if [ -e "$1" ]; then
     echo "" >> $1
