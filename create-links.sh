@@ -36,6 +36,19 @@ do
   check-exist-then-create $n
 done
 
+which brew 2> /dev/null
+if [ $? -ne 0 ]; then
+  echo 'Setup brew? [y|n]'
+  read brew_setup
+  if [ "y" == "$brew_setup" ]; then
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    /usr/local/bin/brew install wget
+    /usr/local/bin/brew install tree
+    /usr/local/bin/brew install curl
+    /usr/local/bin/brew install reattach-to-user-namespace
+  fi
+fi
+
 echo "Append add-ons to bash? [y|n]"
 read addons
 if [ "y" == "$addons" ]; then
@@ -74,3 +87,4 @@ if [ "y" == "$gitcomplete" ]; then
 source ~/.git-completion.bash
 EOF
 fi
+
