@@ -52,6 +52,15 @@ target
 build
 .gradle
 
+# sbt Files            #
+# ######################
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
 # Hide Screen Profiles #
 ########################
 .screen/*.profile
