@@ -38,16 +38,14 @@ done
 
 which brew 2> /dev/null
 if [ $? -ne 0 ]; then
-  echo 'Setup brew? [y|n]'
-  read brew_setup
-  if [ "y" == "$brew_setup" ]; then
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-    /usr/local/bin/brew install wget
-    /usr/local/bin/brew install tmux
-    /usr/local/bin/brew install tree
-    /usr/local/bin/brew install curl
-    /usr/local/bin/brew install reattach-to-user-namespace
-  fi
+  ## install brew if missing
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+fi
+
+echo 'Setup brew? [y|n]'
+read brew_setup
+if [ "y" == "$brew_setup" ]; then
+  /usr/local/bin/brew install wget tmux tree curl reattach-to-user-namespace boot2docker docker
 fi
 
 echo "Append add-ons to bash? [y|n]"
