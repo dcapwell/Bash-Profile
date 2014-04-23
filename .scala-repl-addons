@@ -15,7 +15,8 @@ def dir(value: AnyRef, space: String = "  "): Unit = {
     val params = method.getParameterTypes.map(_.getName)
     val ret = method.getReturnType.getName
     val mods = method.getModifiers
-    // unknown happens (look at string).  Can't find any docs on this
+    // unknown happens (look at string).  I would expect this to be default, but
+    // when I look at openjdk, the methods with unknown don't exist...
     var scope = methodScope(mods) getOrElse "unknown"
 
     if(Modifier.isFinal(mods)) scope = s"final $scope"
