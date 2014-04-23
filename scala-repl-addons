@@ -1,0 +1,10 @@
+def dir(value: AnyRef, space: String = "  "): Unit = {
+  println(value.getClass.getName)
+  val methods = value.getClass.getDeclaredMethods.sortBy(_.getName).map{ method =>
+    val name = method.getName
+    val params = method.getParameterTypes.map(_.getName)
+    val ret = method.getReturnType.getName
+    s"$name(${params.mkString(", ")}): $ret"
+  }
+  println(s"${space}${methods.mkString(s"\n$space")}")
+}

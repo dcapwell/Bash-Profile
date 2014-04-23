@@ -83,7 +83,7 @@
 	<key>MaxVertically</key>
 	<false/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~</string>
+	<string>~/src/github/Bash-Profile</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -894,7 +894,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>/Users/capwed</string>
+	<string>/Users/capwed/src/github/Bash-Profile</string>
 	<key>PromptOnClose</key>
 	<true/>
 	<key>PromptOnQuit</key>
