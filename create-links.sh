@@ -31,7 +31,7 @@ else
   fi
 fi
 
-for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore $bin/.ssh/config $bin/.bash_color $bin/.tmux.conf
+for n in $bin/.vim $bin/.vimrc $bin/.screen $bin/.screenrc $bin/.gitconfig $bin/.gitignore $bin/.ssh/config $bin/.bash_color $bin/.tmux.conf $bin/.scala-repl-addons
 do
   check-exist-then-create $n
 done
@@ -57,6 +57,9 @@ if [ "y" == "$addons" ]; then
 . $bin/.bash_color
 . $bin/bash_addons
 . $bin/aws
+
+## Scala Addons
+alias scala="scala -i ~/.scala-repl-addons"
 EOF
 
 fi
