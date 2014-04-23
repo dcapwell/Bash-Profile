@@ -1,10 +1,27 @@
 def dir(value: AnyRef, space: String = "  "): Unit = {
+  import java.lang.reflect._
+
+  def methodScope(mods: Int): Option[String] = {
+    if(Modifier.isPublic(mods)) Some("public")
+    else if(Modifier.isPrivate(mods)) Some("private")
+    else if(Modifier.isProtected(mods)) Some("protected")
+    else None
+  }
+
   println(value.getClass.getName)
+
   val methods = value.getClass.getDeclaredMethods.sortBy(_.getName).map{ method =>
     val name = method.getName
     val params = method.getParameterTypes.map(_.getName)
     val ret = method.getReturnType.getName
-    s"$name(${params.mkString(", ")}): $ret"
+    val mods = method.getModifiers
+    // unknown happens (look at string).  Can't find any docs on this
+    var scope = methodScope(mods) getOrElse "unknown"
+
+    if(Modifier.isFinal(mods)) scope = s"final $scope"
+    if(Modifier.isStatic(mods)) scope = s"static $scope"
+
+    s"$scope $name(${params.mkString(", ")}): $ret"
   }
   println(s"${space}${methods.mkString(s"\n$space")}")
 }
