@@ -1,4 +1,6 @@
-def dir(value: AnyRef, space: String = "  "): Unit = {
+def dir(value: Any, 
+        space: String = "  ", 
+        includeScope: List[String] = List("public")): Unit = {
   import java.lang.reflect._
 
   def methodScope(mods: Int): Option[String] = {
@@ -8,9 +10,7 @@ def dir(value: AnyRef, space: String = "  "): Unit = {
     else None
   }
 
-  println(value.getClass.getName)
-
-  val methods = value.getClass.getDeclaredMethods.sortBy(_.getName).map{ method =>
+  def methodSignature(method: Method): String = {
     val name = method.getName
     val params = method.getParameterTypes.map(_.getName)
     val ret = method.getReturnType.getName
@@ -24,5 +24,40 @@ def dir(value: AnyRef, space: String = "  "): Unit = {
 
     s"$scope $name(${params.mkString(", ")}): $ret"
   }
+
+  println(value.getClass.getName)
+
+  val methods = value.getClass.getMethods.sortBy(_.getName).map(methodSignature)
+
   println(s"${space}${methods.mkString(s"\n$space")}")
+}
+
+// eed3si9n.com/learning-scalaz/Kinds.html
+def kind[A: scala.reflect.runtime.universe.TypeTag]: String = {
+  import scala.reflect.runtime.universe._
+  def typeKind(sig: Type): String = sig match {
+    case PolyType(params, resultType) =>
+      (params map { p =>
+        typeKind(p.typeSignature) match {
+          case "*" => "*"
+          case s   => "(" + s + ")"
+        }
+      }).mkString(" -> ") + " -> *"
+    case _ => "*"
+  }
+  def typeSig(tpe: Type): Type = tpe match {
+    case SingleType(pre, sym) => sym.companionSymbol.typeSignature
+    case ExistentialType(q, TypeRef(pre, sym, args)) => sym.typeSignature
+    case TypeRef(pre, sym, args) => sym.typeSignature
+  }
+  val sig = typeSig(typeOf[A])
+  val s = typeKind(sig)
+  sig.typeSymbol.name + "'s kind is " + s + ". " + (s match {
+    case "*" =>
+      "This is a proper type."
+    case x if !(x contains "(") =>
+      "This is a type constructor: a 1st-order-kinded type."
+    case x =>
+      "This is a type constructor that takes type constructor(s): a higher-kinded type."
+  })
 }
