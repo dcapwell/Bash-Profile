@@ -1,3 +1,5 @@
+:power
+
 def dir(value: Any, 
         space: String = "  ", 
         includeScope: List[String] = List("public")): Unit = {
