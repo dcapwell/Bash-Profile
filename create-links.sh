@@ -56,6 +56,7 @@ if [ "y" == "$addons" ]; then
 ## Bash Extensions
 . $bin/.bash_color
 . $bin/bash_addons
+. $bin/docker_addons
 . $bin/aws
 
 ## Scala Addons
