@@ -1,4 +1,4 @@
-:power
+// :power
 
 def dir(value: Any, 
         space: String = "  ", 
@@ -63,3 +63,15 @@ def kind[A: scala.reflect.runtime.universe.TypeTag]: String = {
       "This is a type constructor that takes type constructor(s): a higher-kinded type."
   })
 }
+
+import scala.language.experimental.macros
+import scala.reflect.macros.Context
+
+def stringify_impl(c: Context)(param: c.Expr[Any]): c.Expr[String] = {
+  import c.universe._
+  val paramRep = show(param.tree)
+  val paramRepTree = Literal(Constant(paramRep))
+  c.Expr[String](paramRepTree)
+}
+
+def stringify(param: => Any): String = macro stringify_impl
