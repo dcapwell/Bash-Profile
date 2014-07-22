@@ -63,6 +63,16 @@ if [ "y" == "$addons" ]; then
 alias scala="scala -i ~/.scala-repl-addons"
 EOF
 
+  ## See you space cowboy
+  pushd ~/
+  wget 'https://gist.githubusercontent.com/danielrehn/d2e6f2129e5f853c3166/raw/9dff7165ed7d47a3f52b411653707cb2f38ce3af/seeyouspacecowboy.sh'
+  popd
+  cat >> ~/.bash_logout <<EOF
+if [ "\$TERM" != "screen" ]; then
+  sh ~/seeyouspacecowboy.sh; sleep 2
+fi
+EOF
+
 fi
 
 SSH_DIR=~/.ssh
