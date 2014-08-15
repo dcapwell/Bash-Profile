@@ -75,7 +75,24 @@ function ps1GitOnly() {
   PS1="\[\033k\033\\$ps1"
 }
 
+function script-gen() {
+  local name="$1"
+  cat <<EOF > "$name"
+#!/usr/bin/env bash
+
+set -e
+
+main() {
+}
+
+main "\$@"
+EOF
+
+  chmod a+x "$name"
+}
+
 alias curl-json="curl -X POST -H'Content-Type: application/json'"
+alias ltree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g' | less"
 
 ## Sets up screen to print out detached screens
 if [ "$PS1" != "" ] ; then
