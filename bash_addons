@@ -93,6 +93,8 @@ EOF
 
 alias curl-json="curl -X POST -H'Content-Type: application/json'"
 alias ltree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g' | less"
+alias grep='grep --color'
+alias time=/usr/bin/time
 
 ## Sets up screen to print out detached screens
 if [ "$PS1" != "" ] ; then
