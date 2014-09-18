@@ -2,6 +2,9 @@
 ## A set of useful functions
 ##
 
+# if a process fails in a pipe, fail everything
+set -o pipefail
+
 # solution from http://superuser.com/questions/490425/how-do-i-switch-between-java-7-and-java-6-on-os-x-10-8-2
 # format: 
 ## setjdk 1.6
