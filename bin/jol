@@ -7,7 +7,10 @@ bin=`dirname "$0"`
 bin=`cd "$bin">/dev/null; pwd`
 
 export JOL_HOME=/opt/openjdk/code-tools/jol
-export JOL_JAR=$JOL_HOME/jol-*/jol-cli/target/jol-externals.jar
+
+find_path() {
+  ls -d $JOL_HOME/jol-* | head -n 1
+}
 
 setup() {
   if [ ! -e "$JOL_HOME" ]; then
@@ -29,12 +32,33 @@ setup() {
   popd
 }
 
+usage() {
+  local path="$1"
+  local clis=$(ls $path/jol-cli/target/jol-* | egrep -v "cli-" | xargs basename | sed 's;jol-;;g' | sed 's;.jar;;g')
+  cat <<EOF 1>&2
+$bin/jol [command] [args]
+
+Commands:
+${clis[@]}
+EOF
+
+  exit 1
+}
+
 main() {
-  if [ ls $JOL_JAR 1> /dev/null 2> /dev/null ]; then
-    echo "$JOL_JAR does not exist?"
+  if [ ! find_path ]; then
     setup
   fi
-  local jarfile=$(ls $JOL_JAR | head -n 1)
+  local path=`find_path`
+
+  if [ $# -eq 0 ]; then
+    echo "Must define a command" 1>&2
+    usage "$path"
+  fi
+  local cmd="$1"
+  shift
+  local jarfile="$path/jol-cli/target/jol-$cmd.jar"
+  set -x
   java -jar "$jarfile" "$@"
 }
 
