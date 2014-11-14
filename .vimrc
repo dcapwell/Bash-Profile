@@ -125,3 +125,14 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Sets a bar showing the max expected line length
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" http://stackoverflow.com/questions/235439/vim-80-column-layout-concerns
+" set colorcolumn=100
+if exists('+colorcolumn')
+  set colorcolumn=100
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>100v.\+', -1)
+endif

@@ -83,9 +83,24 @@ function script-gen() {
   cat <<EOF > "$name"
 #!/usr/bin/env bash
 
+# print all statements
+set -x
+# fail is a statement fails
 set -e
+# fail if a pipe fails
+set -o pipefail
+
+bin=\`dirname "\$0"\`
+bin=\`cd "\$bin">/dev/null; pwd\`
 
 main() {
+  # local action=\${1:-all}
+  # case "\$action" in
+  #   *)
+  #     echo "Unknown action: \$action" 1>\&2
+  #     exit 1
+  #     ;;
+  # esac
 }
 
 main "\$@"

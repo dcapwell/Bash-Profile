@@ -9,3 +9,5 @@ function docker_stop_all() {
 function docker_kill_all() {
   docker kill $(docker ps | awk '{print $1}' | egrep -v "CONTAINER")
 }
+
+alias docker-env='docker run -t -i -w $PWD -v $PWD:$PWD -v $HOME/.m2:/root/.m2 -v $HOME/.gradle:/root/.gradle'

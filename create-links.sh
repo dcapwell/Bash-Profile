@@ -36,6 +36,19 @@ do
   check-exist-then-create $n
 done
 
+if [ ! -d "$HOME/bin" ]; then
+  mkdir -p "$HOME/bin"
+  cat >> $DEST <<EOF
+export PATH="\$PATH:\$HOME/bin"
+EOF
+fi
+
+for b in `ls bin`
+do
+  echo "Adding $b to $HOME/bin/$b"
+  ln -s $PWD/bin/$b $HOME/bin/$b
+done
+
 which brew 2> /dev/null
 if [ $? -ne 0 ]; then
   ## install brew if missing

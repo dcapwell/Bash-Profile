@@ -21,4 +21,5 @@ packages=(
   git-2.1.0
 )
 
+
 nix-env -i "${packages[@]}"
