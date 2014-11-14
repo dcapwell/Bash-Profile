@@ -39,6 +39,7 @@ usage() {
 $bin/jol [command] [args]
 
 Commands:
+
 ${clis[@]}
 EOF
 
@@ -59,7 +60,7 @@ main() {
   shift
   local jarfile="$path/jol-cli/target/jol-$cmd.jar"
   set -x
-  java -jar "$jarfile" "$@"
+  java -javaagent:$jarfile -jar "$jarfile" "$@"
 }
 
 main "$@"
