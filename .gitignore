@@ -69,3 +69,8 @@ project/plugins/project/
 ########################
 # Emacs backup files
 *~
+
+# don't include pathogen
+########################
+.vim/bundle
+.vim/autoload/pathogen.vim

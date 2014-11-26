@@ -10,6 +10,7 @@ git_plugins=(
   "git://github.com/tpope/vim-sensible.git"
   "git@github.com:kien/rainbow_parentheses.vim.git"
   "git@github.com:guns/vim-clojure-static.git"
+  "git@github.com:guns/vim-clojure-highlight.git"
 )
 
 git_name() {
